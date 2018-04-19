@@ -18,14 +18,16 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private Transform firePoint;
 
+    [SerializeField]
+    private Transform aimPoint;
+
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private ParticleSystem muzzleParticle;
+
     private float timer;
-
-
-
-	void Start () 
-	{
-		
-	}
 	
 	void Update ()
 	{
@@ -43,9 +45,12 @@ public class Gun : MonoBehaviour
 
     private void Fire()
     {
-        Debug.DrawRay(firePoint.position, firePoint.forward * 100, Color.red, 1);
+        Debug.DrawRay(firePoint.position, aimPoint.forward * 100, Color.red, 1);
 
-        Ray ray = new Ray(firePoint.position, firePoint.forward);
+        audioSource.PlayOneShot(audioSource.clip);
+        muzzleParticle.Play();
+
+        Ray ray = new Ray(firePoint.position, aimPoint.forward);
 
         RaycastHit hitInfo;
 
